@@ -1,0 +1,7 @@
+<launch>
+	<include file="$(find uavlaunch)/launch/gs.launch" >
+		<arg name="enable_ctrl_vis" default="true" />
+		<arg name="enable_laser_mono_vis" default="true" />
+		<arg name="enable_traj_vis" default="true" />
+	</include>
+</launch>

@@ -1,0 +1,5 @@
+<launch>
+	<include file="$(find uavlaunch)/launch/sensor.launch" >
+		
+	</include>
+</launch>
