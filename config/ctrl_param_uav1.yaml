@@ -1,7 +1,7 @@
 # 3662 + 680(batt) = 4342
 mass        : 4.342
 gra         : 9.81
-hov_percent : 0.72
+hov_percent : 0.66
 
 CTRL_RATE             : 50.0
 ODOM_LOST_TIME_THR    : 0.1
@@ -20,12 +20,12 @@ RC_DEADZONE: 0.1
 LOCK_VELO: 0.3
 
 # Controller gain in minimun snap
-Kp0: 1.3 # 3.0
-Kp1: 1.3 # 3.0
-Kp2: 1.5 # 4.0
-Kv0: 1.7 # 2.0
-Kv1: 1.7 # 2.0
-Kv2: 2.0 # 1.0
+Kp0: 8.0 # 3.0
+Kp1: 8.0 # 3.0
+Kp2: 8.0 # 4.0
+Kv0: 10.0 # 2.0
+Kv1: 10.0 # 2.0
+Kv2: 10.0 # 1.0
 Kr0: 0.5
 Kr1: 0.5
 Kr2: 0.1
