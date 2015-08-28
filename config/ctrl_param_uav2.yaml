@@ -1,4 +1,5 @@
-mass        : 3.402
+# 3402 + 680(batt) = 4342
+mass        : 4.082
 gra         : 9.81
 hov_percent : 0.63
 
