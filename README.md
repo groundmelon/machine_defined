@@ -16,6 +16,19 @@
 | NUC                    | 499     |
 | Device Bay             | 80      |
 | Mount Bar              | 50      |
+| Wire & DC-DC           | 50      |
+| LaserScan              | ???     |
+| Device Bay             | 80      |
+|------------------------|---------|
+|     UAV1 without batt  |  ????   |
+|     UAV1 with batt     |  ????   |
+
+|        Item            |Weight(g)|
+|:----------------------:|:-------:|
+| Frame + Batt.Container | 1700    |
+| NUC                    | 499     |
+| Device Bay             | 80      |
+| Mount Bar              | 50      |
 | VI Sensor              | 150     |
 | Wire & DC-DC           | 50      |
 | Guidance               | 120     |
