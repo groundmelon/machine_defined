@@ -20,8 +20,8 @@
 | LaserScan              | ???     |
 | Device Bay             | 80      |
 |------------------------|---------|
-|     UAV1 without batt  |  ????   |
-|     UAV1 with batt     |  ????   |
+|     UAV1 without batt  |  2995   |
+|     UAV1 with batt     |  3680   |
 
 |        Item            |Weight(g)|
 |:----------------------:|:-------:|
