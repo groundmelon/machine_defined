@@ -20,12 +20,12 @@ RC_DEADZONE: 0.1
 LOCK_VELO: 0.3
 
 # Controller gain in minimun snap
-Kp0: 8.0 # 3.0
-Kp1: 8.0 # 3.0
-Kp2: 8.0 # 4.0
-Kv0: 4.0 # 2.0
-Kv1: 4.0 # 2.0
-Kv2: 4.0 # 1.0
+Kp0: 10.0 # 3.0
+Kp1: 10.0 # 3.0
+Kp2: 10.0 # 4.0
+Kv0: 5.0 # 2.0
+Kv1: 5.0 # 2.0
+Kv2: 5.0 # 1.0
 Kr0: 0.5
 Kr1: 0.5
 Kr2: 0.1
