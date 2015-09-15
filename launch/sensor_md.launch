@@ -4,7 +4,7 @@
 	    <arg name="enable_laserscan" default="true" />
 	    <arg name="enable_djiros" default="true" />
 	    <arg name="enable_imu_3dm_gx4" default="true" />
-	    <arg name="enable_sonarros" default="true" />
+	    <arg name="enable_sonarros" default="false" />
 	    <arg name="enable_laserecho" default="false" />
 	</include>
 </launch>

@@ -1,5 +1,5 @@
 <launch>
-	<include file="$(find uavlaunch)/launch/sensor.launch" >
+    <include file="$(find ekf)/launch/ekf.launch" />
+    <include file="$(find self_calibration_estimator)/launch/online.launch" />
 		
-	</include>
 </launch>
