@@ -16,7 +16,7 @@ RC_TO_ANGLE_SCALE   : 0.523
 
 SET_HOV_PERCENT_TO_ZERO : false
 USE_HOV_PERCENT_KF: true
-RC_DEADZONE: 0.1
+RC_DEADZONE: 0.02
 LOCK_VELO: 0.3
 
 # Controller gain in minimun snap
