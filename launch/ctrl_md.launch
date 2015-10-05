@@ -7,10 +7,10 @@
 		<arg name="use_jchen" default="true" />
 
 		<arg name="waypoint_type" value="manual"/>
-		<arg name="max_velocity" value="3.0" />
-		<arg name="max_acceleration" value="2.0" />
-		<arg name="flight_velocity" value="10.0" />
-		<arg name="flight_acceleration" value="7.0" />
+		<arg name="max_velocity" value="2.0" />
+		<arg name="max_acceleration" value="1.0" />
+		<arg name="flight_velocity" value="2.0" />
+		<arg name="flight_acceleration" value="2.0" />
 	</include>
 
 	<include unless="$(arg jchen)" file="$(find uavlaunch)/launch/ctrl.launch" >
