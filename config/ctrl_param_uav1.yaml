@@ -19,10 +19,13 @@ USE_HOV_PERCENT_KF: true
 RC_DEADZONE: 0.02
 LOCK_VELO: 0.3
 
-idling_desired_height_limit: -0.05
+idling_desired_height_limit: 0.20
+idling_thrust: 0.1
+idling_landing_thrust: 0.8
+idling_landing_timeout: 1
 
-hov_thr_kf_update_vert_velo_limit: 0.2
-hov_thr_kf_update_vert_height_limit: 0.5
+hov_thr_kf_update_vert_velo_limit: 100.1
+hov_thr_kf_update_vert_height_limit: 0.2
 
 # Controller gain in minimun snap
 Kp0: 10.0 # 3.0
