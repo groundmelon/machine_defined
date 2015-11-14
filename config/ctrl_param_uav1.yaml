@@ -1,7 +1,7 @@
-# 3662 + 680(batt) = 4342
-mass        : 4.342
+# 2995 + 680(batt) = 3675
+mass        : 3.2
 gra         : 9.81
-hov_percent : 0.72
+hov_percent : 0.70
 
 CTRL_RATE             : 50.0
 ODOM_LOST_TIME_THR    : 0.1
@@ -19,13 +19,21 @@ USE_HOV_PERCENT_KF: true
 RC_DEADZONE: 0.02
 LOCK_VELO: 0.3
 
+idling_desired_height_limit: 0.20
+idling_thrust: 0.1
+idling_landing_thrust: 0.8
+idling_landing_timeout: 1
+
+hov_thr_kf_update_vert_velo_limit: 100.1
+hov_thr_kf_update_vert_height_limit: 0.2
+
 # Controller gain in minimun snap
-Kp0: 1.3 # 3.0
-Kp1: 1.3 # 3.0
-Kp2: 1.5 # 4.0
-Kv0: 1.7 # 2.0
-Kv1: 1.7 # 2.0
-Kv2: 2.0 # 1.0
+Kp0: 8.0 # 3.0
+Kp1: 8.0 # 3.0
+Kp2: 8.0 # 4.0
+Kv0: 6.0 # 2.0
+Kv1: 6.0 # 2.0
+Kv2: 6.0 # 1.0
 Kr0: 0.5
 Kr1: 0.5
 Kr2: 0.1
