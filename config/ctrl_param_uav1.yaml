@@ -1,7 +1,7 @@
 # 2995 + 680(batt) = 3675
 mass        : 3.2
 gra         : 9.81
-hov_percent : 0.55
+hov_percent : 0.65
 full_thrust : 65
 ctrl_rate   : 50.0
 js_ctrl_lock_velo: 0.3
@@ -15,13 +15,13 @@ hover:
 gain:
     hover:
         # Controller gain in minimun snap
-        #           opti/flow1  flow2  multi
+        #           opti/flow  multi
         Kp0: 10.0 # 14.0
         Kp1: 10.0 # 14.0
-        Kp2: 30.0 # 40.0
+        Kp2: 14.0 # 20.0
         Kv0: 8.0 #   8.0
         Kv1: 8.0 #   8.0
-        Kv2: 14.0 # 14.0
+        Kv2: 6.0 # 14.0
         Ka0: 1.0
         Ka1: 1.0
         Ka2: 1.0
@@ -34,7 +34,7 @@ gain:
     track:
         Kp0: 10.0
         Kp1: 10.0
-        Kp2: 30.0
+        Kp2: 20.0
         Kv0: 8.0 
         Kv1: 8.0 
         Kv2: 14.0
@@ -52,10 +52,10 @@ idling:
     desired_height_limit:   0.10
     desired_velo_limit:     0.10
     feedback_velo_limit:    0.10
-    js_thrust_limit:       -0.5
-    landing_timeout:        2.0
-    landing_thrust_percent: 0.8
-    lowest_thrust:          0.2
+    js_thrust_limit:        0.1
+    landing_timeout:        1.0
+    landing_thrust_percent: 0.6
+    lowest_thrust:          0.11
 
 rc:
     hori_velo_scale:   4.0

@@ -6,7 +6,7 @@
 		launch-prefix=""
 		output="screen"
 		required="true">
-	<rosparam file="$(find mocap_optitrack)/config/mocap.yaml" command="load" />
+		<rosparam file="$(find mocap_optitrack)/config/mocap.yaml" command="load" />
 	</node>
 
 	<node pkg="mocap_optitrack" type="mocap_optitrack_object_transform_node" name="mocap_object_transformer" output="screen">
