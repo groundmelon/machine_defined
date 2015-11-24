@@ -61,7 +61,7 @@ rc:
     hori_velo_scale:   4.0
     vert_velo_scale:   3.0
     # rad 30~0.523 45~0.785 60~1.047
-    yaw_scale:         1.047
+    yaw_scale:         0.785
     attitude_scale:    0.523
     deadzone:          0.02
     exit_cmd_deadzone: 0.2
