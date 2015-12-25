@@ -14,6 +14,8 @@ plugin_blacklist:
 - setpoint_accel
 - setpoint_position
 - setpoint_velocity
+- setpoint_raw
+- actuator_control
 - waypoint
 - vision_pose_estimate
 - vision_speed_estimate

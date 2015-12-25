@@ -1,30 +1,52 @@
 <launch>
-	<arg name="jchen" default="false" />
-	
-	<include if="$(arg jchen)" file="$(find uavlaunch)/launch/ctrl.launch" >
-		<arg name="uavname" default="$(env UAVNAME)" />
-		<arg name="enable_djisim" default="false" />
-		<arg name="use_jchen" default="true" />
+	<arg name="uavname" default="$(env UAVNAME)" />
 
-		<arg name="waypoint_type" value="point"/>
-		<arg name="max_velocity" value="1.0" />
-		<arg name="max_acceleration" value="1.0" />
-		<arg name="flight_velocity" value="1.0" />
-		<arg name="flight_acceleration" value="1.0" />
-	</include>
+	<node pkg="pixhawk_utils" type="rc_converter_node" name="rc_converter" 
+		output="screen" >
+		<remap from="~rc_in" to="/mavros/rc/in" />
+	</node>
 
-	<include unless="$(arg jchen)" file="$(find uavlaunch)/launch/ctrl.launch" >
-		<arg name="uavname" default="$(env UAVNAME)" />
-		<arg name="enable_djisim" default="false" />
-		<arg name="use_jchen" default="false" />
+	<node pkg="pixhawk_utils" type="ctrl_converter_node" name="ctrl_converter" 
+		output="screen" >
+		<remap from="~ctrl_in" to="/n1ctrl/ctrl" />
+		<remap from="~imu" to="/mavros/imu/data" />
+		<remap from="~attitude" to="/mavros/setpoint_attitude/attitude" />
+		<remap from="~thrust" to="/mavros/setpoint_attitude/att_throttle" />
+	</node>
 
-		<arg name="waypoint_type" value="eight"/>
-		<arg name="traj_vel" value="1.0"/>
-		<arg name="traj_acc" value="1.0"/>
-	</include>
+	<node pkg="n1ctrl" type="n1ctrl_node" name="n1ctrl" output="screen">
+		<remap from="~joy" to="/rc_converter/rc_out" />
+		<remap from="~odom" to="/odom" />
+		<remap from="~imu" to="/mavros/imu/data" />
+		<remap from="~cmd" to="/position_cmd" />
 
-	<node pkg="ft232_led" name="ft232_led" type="ft232_led_node" output="screen">
-		<remap from="~marker" to="/n1ctrl/state_led" />
+		<remap from="~desire_pose" to="/desire_pose" />
+		<remap from="~traj_start_trigger" to="/traj_start_trigger" />
+
+		<rosparam 
+			command="load" 
+			file="$(find machine_defined)/config/ctrl_param_$(arg uavname).yaml" />
+	</node>
+
+	<node pkg="waypoint_generator" type="waypoint_generator" name="waypoint_generator" output="screen">
+		<param name="waypoint_type" type="string" value="manual" />
+		<remap from="~odom" to="/odom" />
+		<remap from="~goal" to="/goal" />
+		<remap from="~waypoints" to="~waypoints" />
+		<remap from="~waypoints_vis" to="~waypoints_vis" />
+		<remap from="~traj_start_trigger" to="/traj_start_trigger" />
+	</node>
+
+	<node pkg="trajectory_generator" type="trajectory_generator" name="trajectory_generator" output="screen">
+		<param name="add_waypoint_dist_thr" type="double" value="99.0" />
+		<param name="add_waypoint_theta_thr" type="double" value="99.0" /> 
+		<param name="traj_vel" type="double" value="1.0" />
+		<param name="traj_acc" type="double" value="1.0" /> 
+		<remap from="~odom" to="/odom" />
+		<remap from="~waypoints" to="/waypoint_generator/waypoints" />
+		<remap from="~position_cmd" to="/position_cmd" />
+		<remap from="~path" to="/raw_path_vis" />
+		<remap from="~traj" to="/traj_path_vis" />
 	</node>
 
 </launch>
