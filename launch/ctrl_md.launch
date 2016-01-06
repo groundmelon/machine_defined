@@ -22,4 +22,9 @@
 		<arg name="traj_vel" value="1.0"/>
 		<arg name="traj_acc" value="1.0"/>
 	</include>
+
+	<node pkg="ft232_led" name="ft232_led" type="ft232_led_node" output="screen">
+		<remap from="~marker" to="/n1ctrl/state_led" />
+	</node>
+
 </launch>
