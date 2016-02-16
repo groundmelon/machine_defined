@@ -1,58 +1,90 @@
 <launch>
-	<!-- controller working in simulation mode -->
-	<node pkg="n1ctrl" type="n1ctrl_node" name="n1ctrl" output="screen">
-		<!-- <remap from="~joy" to="/djiros/rc" /> -->
-		<remap from="~odom" to="/odom" />
-		<remap from="~imu" to="/quadsim/imu/raw" />
-		<remap from="~cmd" to="/position_cmd" />
+    <!-- controller working in simulation mode -->
+    <node pkg="n1ctrl" type="n1ctrl_node" name="n1ctrl" output="screen">
+        <!-- <remap from="~joy" to="/djiros/rc" /> -->
+        <remap from="~odom" to="/odom" />
+        <remap from="~imu" to="/quadsim/imu/raw" />
+        <remap from="~cmd" to="/position_cmd" />
 
-		<remap from="~desire_pose" to="/desire_pose" />
-		<remap from="~ctrl_so3/attitude" to="/so3_cmd/attitude" />
-		<remap from="~ctrl_so3/thrust" to="/so3_cmd/thrust" />
-		<remap from="~traj_start_trigger" to="/traj_start_trigger" />
+        <remap from="~desire_pose" to="/desire_pose" />
+        <remap from="~ctrl_so3/attitude" to="/so3_cmd/attitude" />
+        <remap from="~ctrl_so3/thrust" to="/so3_cmd/thrust" />
+        <remap from="~traj_start_trigger" to="/traj_start_trigger" />
 
-		<rosparam command="load" file="$(find machine_defined)/config/ctrl_param_sim.yaml" />
-		<param name="work_mode" value="sim_without_rc" />
-	</node>
+        <rosparam command="load" file="$(find machine_defined)/config/ctrl_param_sim.yaml" />
+        <param name="work_mode" value="sim_without_rc" />
+    </node>
 
 
-	<node pkg="quadsim" type="quadsim_node" name="quadsim" output="screen">
-    	<param name="rate/odom" value="100.0"/>
-    	<remap from="~odom" to="/odom"/>
-    	<remap from="~attitude" to="/so3_cmd/attitude"/>
-    	<remap from="~thrust" to="/so3_cmd/thrust"/>
-    	<rosparam command="load" file="$(find machine_defined)/config/simulation_param.yaml" />
-  	</node>
+    <node pkg="quadsim" type="quadsim_node" name="quadsim" output="screen">
+        <param name="rate/odom" value="100.0"/>
+        <remap from="~odom" to="/odom"/>
+        <remap from="~attitude" to="/so3_cmd/attitude"/>
+        <remap from="~thrust" to="/so3_cmd/thrust"/>
+        <rosparam>
+            rate:
+              simulation: 1000.0
+              odom: 100.0
+            noise:
+              imu:
+                accel:
+                  init_bias: 
+                    x: -0.0
+                    y: 0.0
+                    z: 0.0
+                  stddev:
+                    x: 0.02
+                    y: 0.02
+                    z: 0.02
+                  walk_stddev:
+                    x: 0.0
+                    y: 0.0
+                    z: 0.0
+                gyro:
+                  init_bias: 
+                    x: 0.0
+                    y: 0.0
+                    z: 0.0
+                  stddev:
+                    x: 0.02
+                    y: 0.02
+                    z: 0.02
+                  walk_stddev:
+                    x: 0.0
+                    y: 0.0
+                    z: 0.0
+        </rosparam>
+    </node>
 
-  	<node pkg="trajectory_generator" type="trajectory_generator" name="trajectory_generator" output="log">
-		<param name="add_waypoint_dist_thr" type="double" value="99.0" />
-		<param name="add_waypoint_theta_thr" type="double" value="99.0" /> 
-		
-		<param name="traj_vel" type="double" value="3.5" /> 
-		<param name="traj_acc" type="double" value="3.0" /> 
-		<param name="fast_mode_vel" type="double" value="3.5" /> 
-		<param name="fast_mode_acc" type="double" value="3.0" /> 
+    <node pkg="trajectory_generator" type="trajectory_generator" name="trajectory_generator" output="log">
+        <param name="add_waypoint_dist_thr" type="double" value="99.0" />
+        <param name="add_waypoint_theta_thr" type="double" value="99.0" /> 
+        
+        <param name="traj_vel" type="double" value="3.5" /> 
+        <param name="traj_acc" type="double" value="3.0" /> 
+        <param name="fast_mode_vel" type="double" value="3.5" /> 
+        <param name="fast_mode_acc" type="double" value="3.0" /> 
 
-		<remap from="~odom" to="/odom" />
-		<remap from="~waypoints" to="/waypoints" />
-		<remap from="~position_cmd" to="/position_cmd" />
-		<remap from="~path" to="/raw_path_vis" />
-		<remap from="~traj" to="/traj_path_vis" />
-		<!-- <remap from="~correction" to="/waypoints_vis" /> -->
-	</node>
+        <remap from="~odom" to="/odom" />
+        <remap from="~waypoints" to="/waypoints" />
+        <remap from="~position_cmd" to="/position_cmd" />
+        <remap from="~path" to="/raw_path_vis" />
+        <remap from="~traj" to="/traj_path_vis" />
+        <!-- <remap from="~correction" to="/waypoints_vis" /> -->
+    </node>
 
-	<node pkg="waypoint_generator" type="waypoint_generator" name="waypoint_generator" output="screen">
-		<param name="waypoint_type" type="string" value="manual-lonely-waypoint" />
-		<remap from="~odom" to="/odom" />
-		<remap from="~goal" to="/goal" />
-		<remap from="~waypoints" to="/waypoints" />
-		<remap from="~waypoints_vis" to="~waypoints_vis" />
-		<remap from="~traj_start_trigger" to="/traj_start_trigger" />
-	</node>
+    <node pkg="waypoint_generator" type="waypoint_generator" name="waypoint_generator" output="screen">
+        <param name="waypoint_type" type="string" value="manual-lonely-waypoint" />
+        <remap from="~odom" to="/odom" />
+        <remap from="~goal" to="/goal" />
+        <remap from="~waypoints" to="/waypoints" />
+        <remap from="~waypoints_vis" to="~waypoints_vis" />
+        <remap from="~traj_start_trigger" to="/traj_start_trigger" />
+    </node>
 
-	<node pkg="odometry_assist" type="odometry_assist_node" name="odom_vis" output="screen" >
-		<rosparam command="load" file="$(find machine_defined)/config/odom_assist_for_sim.yaml" />
-		<remap from="~odom" to="/odom" />
-	</node>
+    <node pkg="odometry_assist" type="odometry_assist_node" name="odom_vis" output="screen" >
+        <rosparam command="load" file="$(find machine_defined)/config/odom_assist_for_sim.yaml" />
+        <remap from="~odom" to="/odom" />
+    </node>
 
 </launch>
