@@ -11,7 +11,7 @@
         >
         <!-- <remap from="~odom_gps"    to="TODO"/>     -->
         <!-- <remap from="~odom_vision" to="TODO"/> -->
-        <remap from="~imu"         to="/quadsim/imu/raw"/>
+        <remap from="~imu"         to="/quadsim/imu/noisy"/>
         <!-- <remap from="~odom_laser"  to="/laser_pose_estimator/odom"/>     -->
         <!-- <remap from="~opti_flow"   to="/monocular_velocity_estimator/odom"/> -->
         <!-- <remap from="~odom_vision"   to="/self_calibration_estimator/odometry"/> -->
