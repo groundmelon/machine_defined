@@ -1,6 +1,63 @@
 <launch>
-    <!-- <include file="$(find ekf)/launch/ekf.launch" />
-    <include file="$(find self_calibration_estimator)/launch/online.launch" /> -->
-    <include file="$(find laser_mono_launch)/m100_laser.launch" />
+    <node pkg="quadukf"
+        name="quadukf"
+        type="quadukf_node"       
+        output="screen"
+        launch-prefix=""
+        >
+        <!-- <remap from="~odom_gps"    to="TODO"/>     -->
+        <!-- <remap from="~odom_vision" to="TODO"/> -->
+        <remap from="~imu"         to="/djiros/imu"/>
+        <!-- <remap from="~odom_laser"  to="/laser_pose_estimator/odom"/>     -->
+        <!-- <remap from="~opti_flow"   to="/monocular_velocity_estimator/odom"/> -->
+        <!-- <remap from="~odom_vision"   to="/self_calibration_estimator/odometry"/> -->
+        <!-- <remap from="~height_rel"  to="/scan/height"/> -->
+        <!-- <remap from="~height_abs"  to="/sonar/height"/> -->
+        <!-- <remap from="~global_vo"  to="/vosim/vo"/> -->
+        <remap from="~pose_with_yaw"  to="/gimbaltransform/odom"/>
+
+        <rosparam>
+            init_source: "pose_with_yaw"
+            process_std: [0.2,0.2,0.2,0.1,0.1,0.1,0.05,0.05,0.05]
+        </rosparam>
+    </node>
+
+    <node pkg="odometry_assist" type="odometry_assist_node" name="odom_quadukf_vis" output="screen" >
+        <remap from="~odom" to="/quadukf/odom" />
+        <rosparam>
+            default:
+                color:
+                    r: 1.0
+                    g: 0.0
+                    b: 0.0
+                    a: 0.0
+                base_frame_id: "world"
+
+            tf:
+                enable: true
+                # base_frame_id: "world" # can be omitted or overwrite default/base_frame_id
+                body_frame_id: "ukfbody"
+                intermediate_frame_id: "intermediate"
+                intermediate_frame_enable: false
+                base_alias_frame_id: "map"
+                base_alias_frame_enable: false
+
+            velocity:
+                enable: true
+                # color: # can be omitted or overwrite default/color
+                #   r: 1.0
+                #   g: 0.0
+                #   b: 0.0
+                #   a: 0.0
+
+            path:
+                enable: false
+                decimation: 0 # no decimation when less than 1 
+                max_history: -1.0 # infinite history when less than 0
+
+            euler:
+                enable: false
+        </rosparam>
+    </node>
 		
 </launch>
