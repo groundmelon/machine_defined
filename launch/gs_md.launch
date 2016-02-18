@@ -1,7 +1,7 @@
 <launch>
-	<arg name="enable_ctrl_vis" default="false" />
+	<arg name="enable_ctrl_vis" default="true" />
 	<arg name="enable_laser_mono_vis" default="false" />
-	<arg name="enable_traj_vis" default="true" />
+	<arg name="enable_traj_vis" default="false" />
 
 	<group if="$(arg enable_ctrl_vis)">
 		<param 
