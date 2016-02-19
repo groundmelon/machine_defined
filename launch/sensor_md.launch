@@ -1,5 +1,5 @@
 <launch>
     <include file="$(find djiros)/launch/djiros.launch" />
-    <node pkg="m100_x3" type="m100_x3_client_node" name="m100_x3">
+    <node if="true" pkg="m100_x3" type="m100_x3_client_node" name="m100_x3" output="screen">
     </node>
 </launch>
