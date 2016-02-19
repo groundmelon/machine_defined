@@ -11,7 +11,7 @@ tf:
     # base_frame_id: "world" # can be omitted or overwrite default/base_frame_id
     body_frame_id: "body"
     intermediate_frame_id: "intermediate"
-    intermediate_frame_enable: true
+    intermediate_frame_enable: false
     base_alias_frame_id: "map"
     base_alias_frame_enable: false
 

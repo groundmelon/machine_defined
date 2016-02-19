@@ -1,27 +1,15 @@
 <launch>
 	<arg name="uavname" default="$(env UAVNAME)" />
 
-	<node pkg="pixhawk_utils" type="rc_converter_node" name="rc_converter" 
-		output="screen" >
-		<remap from="~rc_in" to="/mavros/rc/in" />
-	</node>
-
-	<node pkg="pixhawk_utils" type="ctrl_converter_node" name="ctrl_converter" 
-		output="screen" >
-		<remap from="~ctrl_in" to="/n1ctrl/ctrl" />
-		<remap from="~imu" to="/mavros/imu/data" />
-		<remap from="~attitude" to="/mavros/setpoint_attitude/attitude" />
-		<remap from="~thrust" to="/mavros/setpoint_attitude/att_throttle" />
-	</node>
-
 	<node pkg="n1ctrl" type="n1ctrl_node" name="n1ctrl" output="screen">
-		<remap from="~joy" to="/rc_converter/rc_out" />
+		<remap from="~joy" to="/djiros/rc" />
 		<remap from="~odom" to="/odom" />
-		<remap from="~imu" to="/mavros/imu/data" />
+		<remap from="~imu" to="/djiros/imu" />
 		<remap from="~cmd" to="/position_cmd" />
 
 		<remap from="~desire_pose" to="/desire_pose" />
 		<remap from="~traj_start_trigger" to="/traj_start_trigger" />
+		<remap from="~ctrl" to="/djiros/ctrl" />
 
 		<rosparam 
 			command="load" 

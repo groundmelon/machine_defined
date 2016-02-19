@@ -1,3 +1,5 @@
 <launch>
-    <include if="$(arg enable_djiros)" file="$(find djiros)/launch/djiros.launch" />
+    <include file="$(find djiros)/launch/djiros.launch" />
+    <node pkg="m100_x3" type="m100_x3_client_node" name="m100_x3">
+    </node>
 </launch>

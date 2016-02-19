@@ -25,4 +25,16 @@
         <remap from="~odom" to="/poseekf/odom" />
     </node>
 
+    <node name="tf_assist" pkg="uav_utils" type="tf_assist.py" output="screen">
+	    <param name="~converter0/frame_id_in" value="world" />
+	    <param name="~converter0/frame_id_out" value="world" />
+	    <param name="~converter0/broadcast_tf" value="false" />
+	    <param name="~converter0/body_frame_id" value="body" />
+	    <param name="~converter0/intermediate_frame_id" value="intermediate" />
+	    <param name="~converter0/world_frame_id" value="world" />
+	    <remap from="~converter0/in_odom" to="/poseekf/odom" />    
+	    <remap from="~converter0/out_odom" to="/odom" />
+	    <remap from="~converter0/out_path" to="/ekfpath" />
+  	</node>
+
 </launch>
