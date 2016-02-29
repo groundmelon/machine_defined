@@ -56,6 +56,11 @@
         </rosparam>
     </node>
 
+    <node pkg="quadsim" type="feature_sim_node" name="feature_sim" output="screen"
+        >
+        <remap from="~odom" to="/odom"/>
+    </node>
+
     <node pkg="trajectory_generator" type="trajectory_generator" name="trajectory_generator" output="log">
         <param name="add_waypoint_dist_thr" type="double" value="99.0" />
         <param name="add_waypoint_theta_thr" type="double" value="99.0" /> 
