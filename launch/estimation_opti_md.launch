@@ -6,7 +6,17 @@
 		launch-prefix=""
 		output="screen"
 		required="true">
-		<rosparam file="$(find mocap_optitrack)/config/mocap.yaml" command="load" />
+        <rosparam>
+            rigid_bodies:
+                '6':
+                    pose: Robot_1/pose
+                    pose2d: Robot_1/ground_pose
+                    child_frame_id: Robot_1/base_link
+                    parent_frame_id: vicon
+            optitrack_config:
+                multicast_address: 224.0.0.1
+                sdk_version: 2.8
+        </rosparam>
 	</node>
 
 	<node pkg="mocap_optitrack" type="mocap_optitrack_object_transform_node" name="mocap_object_transformer" output="screen">

@@ -1,13 +1,13 @@
 # 2995 + 680(batt) = 3675
 mass        : 3.2
 gra         : 9.81
-hov_percent : 0.40
+hov_percent : 0.30
 full_thrust : 65
 ctrl_rate   : 50.0
 js_ctrl_lock_velo: 0.3
 
 hover:
-    set_hov_percent_to_zero: true
+    set_hov_percent_to_zero: false
     use_hov_percent_kf: true
     vert_velo_limit_for_update: 0.2
     vert_height_limit_for_update: 0.2
@@ -34,10 +34,10 @@ gain:
     track:
         Kp0: 10.0
         Kp1: 10.0
-        Kp2: 20.0
+        Kp2: 10.0
         Kv0: 8.0 
         Kv1: 8.0 
-        Kv2: 14.0
+        Kv2: 8.0
         Ka0: 1.0
         Ka1: 1.0
         Ka2: 1.0

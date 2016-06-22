@@ -14,7 +14,7 @@
         <!-- <remap from="~height_rel"  to="/scan/height"/> -->
         <!-- <remap from="~height_abs"  to="/sonar/height"/> -->
         <!-- <remap from="~global_vo"  to="/vosim/vo"/> -->
-        <remap from="~pose_with_yaw"  to="/gimbaltransform/odom"/>
+        <remap from="~pose_with_yaw"  to="/mocap/odom"/>
 
         <rosparam>
             init_source: "pose_with_yaw"
@@ -58,6 +58,21 @@
             euler:
                 enable: false
         </rosparam>
+    </node>
+
+    <node pkg="mocap_optitrack"
+        type="mocap_node"
+        name="mocap_node"
+        respawn="false"
+        launch-prefix=""
+        output="screen"
+        required="true">
+        <rosparam file="$(find mocap_optitrack)/config/mocap.yaml" command="load" />
+    </node>
+
+    <node pkg="mocap_optitrack" type="mocap_optitrack_object_transform_node" name="mocap_object_transformer" output="screen">
+        <remap from="~in_pose" to="/Robot_1/pose" />
+        <remap from="~odom" to="/mocap/odom" />
     </node>
 		
 </launch>
