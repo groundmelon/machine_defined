@@ -1,11 +1,26 @@
-<launch>
-	<include file="$(find uavlaunch)/launch/sensor.launch" >
-		<arg name="enable_camera" default="true" />
-	    <arg name="enable_color_camera" default="true" />
-	    <arg name="enable_laserscan" default="true" />
-	    <arg name="enable_djiros" default="true" />
-	    <arg name="enable_imu_3dm_gx4" default="false" />
-	    <arg name="enable_sonarros" default="false" />
-	    <arg name="enable_laserecho" default="false" />
-	</include>
-</launch>
+<launch>  
+    <node pkg="bluefox2" type="bluefox2" name="bluefox2" output="screen" launch-prefix="">
+        <param name="fps" type="double" value="30.0" />
+        <param name="gain" type="double" value="5.0" />
+        <param name="use_auto_exposure" type="bool" value="false" />
+        <param name="cam_cnt" type="int" value="1" />
+        <param name="seriala" type="string" value="25000681" />   
+        <param name="exposure_time_usa" type="int" value="10000" />     
+        <param name="serialb" type="string" value="25000709" />   
+        <param name="exposure_time_usb" type="int" value="10000" />     
+        <param name="serialc" type="string" value="25001161" />   
+        <param name="exposure_time_usc" type="int" value="10000" />     
+        <param name="pub_cnt" type="int" value="1" />   
+        <param name="mask0" type="string" value="a" />
+        <remap from="~a" to="~image" />
+    </node> 
+
+    <include file="$(find imu_3dm_gx4)/launch/imu.launch">
+        <arg name="imu_decimation" value="5" />
+        <arg name="filter_decimation" value="2" />
+        <arg name="enable_filter" value="true" />
+        <arg name="enable_accel_update" value="true"/>
+    </include>
+
+    <node pkg="imu_3dm_gx4" type="imu_3dm_gx4_merger.py" name="imu_3dm_gx4_merger" output="screen" />
+</launch>  

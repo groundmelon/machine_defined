@@ -30,8 +30,8 @@
                 accel:
                   init_bias: 
                     x: -0.1
-                    y: 0.0
-                    z: 0.0
+                    y: -0.1
+                    z: -0.1
                   stddev:
                     x: 0.02
                     y: 0.02
@@ -56,16 +56,24 @@
         </rosparam>
     </node>
 
-    <node pkg="quadsim" type="feature_sim_node" name="feature_sim" output="screen"
-        >
+    <node pkg="quadsim" type="feature_sim_node" name="feature_sim" output="screen">
         <remap from="~odom" to="/odom"/>
+        <remap from="~image" to="/bluefox2/image"/>
+        <rosparam>
+            cam_cnt: 1
+            enable_cam_vis: false
+            number: 9
+            height: -2.0
+            scale: 1.0
+            pixel_noise: 0.0
+        </rosparam>
     </node>
 
     <node pkg="trajectory_generator" type="trajectory_generator" name="trajectory_generator" output="log">
-        <param name="add_waypoint_dist_thr" type="double" value="99.0" />
-        <param name="add_waypoint_theta_thr" type="double" value="99.0" /> 
+        <param name="add_waypoint_dist_thr" type="double" value="1.0" />
+        <param name="add_waypoint_theta_thr" type="double" value="1.0" /> 
         
-        <param name="traj_vel" type="double" value="3.5" /> 
+        <param name="traj_vel" type="double" value="6.0" /> 
         <param name="traj_acc" type="double" value="3.0" /> 
         <param name="fast_mode_vel" type="double" value="3.5" /> 
         <param name="fast_mode_acc" type="double" value="3.0" /> 
@@ -84,7 +92,18 @@
         <remap from="~goal" to="/goal" />
         <remap from="~waypoints" to="/waypoints" />
         <remap from="~waypoints_vis" to="~waypoints_vis" />
+
         <remap from="~traj_start_trigger" to="/traj_start_trigger" />
+        <param name="waypoint_type" type="string" value="series" />
+        <rosparam>
+            segment_cnt: 1
+            seg0:
+                yaw: 0
+                time_from_start: 0.0
+                x: [0.0, 0.0, 5.0, 5.0,-5.0,-5.0, 5.0, 5.0,-5.0,-5.0, 0.0, 0.0]
+                y: [0.0,-5.0,-5.0, 5.0, 5.0,-5.0,-5.0, 5.0, 5.0,-5.0,-5.0, 0.0]
+                z: [0.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0.01]
+        </rosparam>
     </node>
 
     <node pkg="odometry_assist" type="odometry_assist_node" name="odom_vis" output="screen" >
