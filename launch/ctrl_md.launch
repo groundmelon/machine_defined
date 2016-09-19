@@ -1,30 +1,50 @@
 <launch>
-	<arg name="jchen" default="false" />
-	
-	<include if="$(arg jchen)" file="$(find uavlaunch)/launch/ctrl.launch" >
-		<arg name="uavname" default="$(env UAVNAME)" />
-		<arg name="enable_djisim" default="false" />
-		<arg name="use_jchen" default="true" />
+	<arg name="uavname" default="$(env UAVNAME)" />
 
-		<arg name="waypoint_type" value="point"/>
-		<arg name="max_velocity" value="1.0" />
-		<arg name="max_acceleration" value="1.0" />
-		<arg name="flight_velocity" value="1.0" />
-		<arg name="flight_acceleration" value="1.0" />
-	</include>
+	<node pkg="n1ctrl" type="n1ctrl_node" name="n1ctrl" output="screen">
+		<remap from="~joy" to="/djiros/rc" />
+		<remap from="~odom" to="/odom" />
+		<remap from="~imu" to="/djiros/imu" />
+		<remap from="~cmd" to="/position_cmd" />
 
-	<include unless="$(arg jchen)" file="$(find uavlaunch)/launch/ctrl.launch" >
-		<arg name="uavname" default="$(env UAVNAME)" />
-		<arg name="enable_djisim" default="false" />
-		<arg name="use_jchen" default="false" />
+		<remap from="~desire_pose" to="/desire_pose" />
+		<remap from="~traj_start_trigger" to="/traj_start_trigger" />
+		<remap from="~ctrl" to="/djiros/ctrl" />
 
-		<arg name="waypoint_type" value="eight"/>
-		<arg name="traj_vel" value="1.0"/>
-		<arg name="traj_acc" value="1.0"/>
-	</include>
+		<rosparam 
+			command="load" 
+			file="$(find machine_defined)/config/ctrl_param_$(arg uavname).yaml" />
+	</node>
 
-	<node pkg="ft232_led" name="ft232_led" type="ft232_led_node" output="screen">
-		<remap from="~marker" to="/n1ctrl/state_led" />
+	<node pkg="waypoint_generator" type="waypoint_generator" name="waypoint_generator" output="screen">
+		<param name="waypoint_type" type="string" value="eight" />
+		<remap from="~odom" to="/odom" />
+		<remap from="~goal" to="/goal" />
+		<remap from="~waypoints" to="~waypoints" />
+		<remap from="~waypoints_vis" to="~waypoints_vis" />
+		<remap from="~traj_start_trigger" to="/traj_start_trigger" />
+        <param name="waypoint_type" type="string" value="series" />
+        <rosparam>
+             segment_cnt: 1
+             seg0:
+                 yaw: 0
+                 time_from_start: 0.0
+                 x: [0.0, 1.0, 2.0, 3.0, 4.0, 3.0, 2.0, 1.0, 0.0, 1.0, 2.0, 3.0, 4.0, 3.0, 2.0, 1.0, 0.0, 0.0]
+                 y: [0.0, 1.0, 0.0,-1.0, 0.0, 1.0, 0.0,-1.0, 0.0, 1.0, 0.0,-1.0, 0.0, 1.0, 0.0,-1.0, 0.0, 0.0]
+                 z: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+         </rosparam>
+	</node>
+
+	<node pkg="trajectory_generator" type="trajectory_generator" name="trajectory_generator" output="screen">
+		<param name="add_waypoint_dist_thr" type="double" value="99.0" />
+		<param name="add_waypoint_theta_thr" type="double" value="99.0" /> 
+		<param name="traj_vel" type="double" value="3.0" />
+		<param name="traj_acc" type="double" value="1.0" /> 
+		<remap from="~odom" to="/odom" />
+		<remap from="~waypoints" to="/waypoint_generator/waypoints" />
+		<remap from="~position_cmd" to="/position_cmd" />
+		<remap from="~path" to="/raw_path_vis" />
+		<remap from="~traj" to="/traj_path_vis" />
 	</node>
 
 </launch>
