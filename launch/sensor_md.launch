@@ -17,20 +17,25 @@
         <arg name="enable_filter" default="true"/>
     </include>
     
-    <node if="true" pkg="sonarros" type="maxsonar.py" name="maxsonar" output="screen">
+    <node if="true" pkg="sonarros" type="maxsonar.py" name="sonar" output="screen">
         <param name="devname" type="string" value="/dev/ttyUSB0"/>
         <param name="baudrate" type="int" value="9600"/>
-        <remap from="~height" to="/sonar/height" />
+        <rosparam>
+            limit_low      : 0.21
+            limit_high     : 5.0 
+            install_height : 0.17
+        </rosparam>
+
     </node>
 
-    <node if="true"
+    <node if="false"
     	pkg="bluefox2" type="bluefox2" name="bluefox2" output="screen">
         <param name="fps" type="double" value="30.0" />
-        <param name="gain" type="double" value="5.0" />
+        <param name="gain" type="double" value="0.0" />
         <param name="use_auto_exposure" type="bool" value="false" />
         <param name="cam_cnt" type="int" value="1" />
         <param name="seriala" type="string" value="25000681" />   
-        <param name="exposure_time_usa" type="int" value="10000" />     
+        <param name="exposure_time_usa" type="int" value="5000" />     
         <param name="serialb" type="string" value="25000709" />   
         <param name="exposure_time_usb" type="int" value="10000" />     
         <param name="serialc" type="string" value="25001161" />   
