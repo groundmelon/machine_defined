@@ -4,7 +4,7 @@
         <param name="gain" type="double" value="5.0" />
         <param name="use_auto_exposure" type="bool" value="false" />
         <param name="cam_cnt" type="int" value="1" />
-        <param name="seriala" type="string" value="25000681" />   
+        <param name="seriala" type="string" value="25001507" />   
         <param name="exposure_time_usa" type="int" value="10000" />     
         <param name="serialb" type="string" value="25000709" />   
         <param name="exposure_time_usb" type="int" value="10000" />     
