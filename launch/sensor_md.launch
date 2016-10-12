@@ -1,15 +1,34 @@
 <launch>
-    <node pkg="djiros" type="djiros_node" name="djiros" output="screen">
-		<!-- node parameters -->
-		<param name="serial_name" type="string" value="/dev/ttyTHS1"/>
-		<param name="baud_rate" type="int" value="230400"/>
-		<param name="app_id" type="int" value="$(env DJIROS_APPID)"/>
-		<param name="app_version" type="int" value="1"/>
-		<param name="enc_key" type="string" value="$(env DJIROS_ENCKEY)"/>	
-		<param name="only_broadcast" type="bool" value="false"/>
-		<param name="align_with_fmu" type="bool" value="false"/>
-	</node>
+    <node pkg="djiros" type="djifox_node" name="djiros" output="screen" launch-prefix="">
+        <param name="serial_name" type="string" value="/dev/ttyUSBA3"/>
+        <param name="baud_rate" type="int" value="230400"/>
+        <param name="A3_or_M100" type="int" value="0"/>
+        <param name="app_id" type="int" value="$(env DJIROS_APPID)"/>
+        <param name="app_version" type="int" value="1"/>
+        <param name="enc_key" type="string" value="$(env DJIROS_ENCKEY)"/>  
+        <param name="only_broadcast" type="bool" value="false"/>
+        <param name="align_with_fmu" type="bool" value="false"/>
+        <rosparam>
+            # common setting and default individual settings
+            verbose_output: false
+            cam_cnt: 1
+            fps:  25
+            gain: 1.0
+            use_auto_exposure: false
+            fast_mode: false
 
+            # individual setting for camera 0
+            camera0:
+                serial: "25000681"
+                topic: image
+                use_auto_exposure: false
+                exposure_time_us: 10000
+                auto_speed: 0 # 0--1--2, slow--medium--fast converge to desired value
+                gain: 1.0
+                is_slave: true
+        </rosparam>
+    </node> 
+    
     <include if="false"
         file="$(find imu_3dm_gx4)/launch/imu.launch" >
         <arg name="imu_decimation" value="5" />
@@ -17,7 +36,11 @@
         <arg name="enable_filter" default="true"/>
     </include>
     
-    <node if="true" pkg="sonarros" type="maxsonar.py" name="sonar" output="screen">
+    <node if="true" pkg="terarangerone" type="terarangerone_node" name="terarangerone" output="screen">
+		<param name="portname" value="/dev/ttyUSBTerarangerOne" />
+	</node>
+
+    <node if="false" pkg="sonarros" type="maxsonar.py" name="sonar" output="screen">
         <param name="devname" type="string" value="/dev/ttyUSB0"/>
         <param name="baudrate" type="int" value="9600"/>
         <rosparam>
@@ -25,7 +48,6 @@
             limit_high     : 5.0 
             install_height : 0.17
         </rosparam>
-
     </node>
 
     <node if="false"
