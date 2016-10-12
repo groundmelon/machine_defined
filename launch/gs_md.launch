@@ -12,7 +12,7 @@
 			name="rviz_ctrl" 
 			pkg="rviz" 
 			type="rviz" 
-			args="-d $(find uavlaunch)/config/ctrl.rviz" 
+			args="-d $(find machine_defined)/config/view.rviz" 
 			output="screen"/>
 		<node 
 			name="euler_helper" 
