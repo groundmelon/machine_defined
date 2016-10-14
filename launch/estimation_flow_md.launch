@@ -91,7 +91,7 @@
 
             path:
                 enable: true
-                decimation: 0 # no decimation when less than 1 
+                decimation: 10 # no decimation when less than 1 
                 max_history: -1.0 # infinite history when less than 0
 
             euler:
