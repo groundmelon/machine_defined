@@ -3,7 +3,7 @@
 
 	<node pkg="n1ctrl" type="n1ctrl_node" name="n1ctrl" output="screen">
 		<remap from="~joy" to="/djiros/rc" />
-		<remap from="~odom" to="/odom" />
+        <remap from="~odom" to="/quadukf/odom" />
 		<remap from="~imu" to="/djiros/imu" />
 		<remap from="~cmd" to="/position_cmd" />
 

@@ -1,14 +1,14 @@
 # 2995 + 680(batt) = 3675
-mass        : 3.2
+mass        : 1.70
 gra         : 9.81
 hov_percent : 0.30
-full_thrust : 65
+full_thrust : 56
 ctrl_rate   : 50.0
 js_ctrl_lock_velo: 0.3
 
 hover:
     set_hov_percent_to_zero: false
-    use_hov_percent_kf: true
+    use_hov_percent_kf: false
     vert_velo_limit_for_update: 0.2
     vert_height_limit_for_update: 0.2
 
