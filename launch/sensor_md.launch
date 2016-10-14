@@ -25,6 +25,5 @@
 		<param name="only_broadcast" type="bool" value="false"/>
 		<param name="align_with_fmu" type="bool" value="false"/>
 	</node>
-</launch>
 
 </launch>
