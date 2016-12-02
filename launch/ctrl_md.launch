@@ -70,8 +70,8 @@
     </node>
 
     <node pkg="trajectory_generator" type="trajectory_generator" name="trajectory_generator" output="log">
-        <param name="add_waypoint_dist_thr" type="double" value="1.0" />
-        <param name="add_waypoint_theta_thr" type="double" value="1.0" /> 
+        <param name="add_waypoint_dist_thr" type="double" value="99.0" />
+        <param name="add_waypoint_theta_thr" type="double" value="99.0" /> 
         
         <param name="traj_vel" type="double" value="6.0" /> 
         <param name="traj_acc" type="double" value="3.0" /> 
@@ -100,9 +100,9 @@
             seg0:
                 yaw: 0
                 time_from_start: 0.0
-                x: [0.0, 0.0, 5.0, 5.0,-5.0,-5.0, 5.0, 5.0,-5.0,-5.0, 0.0, 0.0]
-                y: [0.0,-5.0,-5.0, 5.0, 5.0,-5.0,-5.0, 5.0, 5.0,-5.0,-5.0, 0.0]
-                z: [0.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0.01]
+                x: [0.0,-2.0, 0.0, 2.0, 4.0, 6.0, 8.0, 6.0, 4.0, 2.0, 0.0, 2.0, 4.0, 6.0, 8.0, 6.0, 4.0, 2.0, 0.0, 0.0 ]
+                y: [0.0, 0.0, 0.0,-2.0, 0.0, 2.0, 0.0,-2.0, 0.0, 2.0, 0.0,-2.0, 0.0, 2.0, 0.0,-2.0, 0.0, 2.0, 0.0, 0.0 ]
+                z: [0.0, 1.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0.01]
         </rosparam>
     </node>
 

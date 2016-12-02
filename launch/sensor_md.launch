@@ -1,5 +1,35 @@
-<launch>  
-    <node pkg="bluefox2" type="bluefox2" name="bluefox2" output="screen" launch-prefix="">
+<launch> 
+    <node pkg="djiros" type="djifox_node" name="djiros" output="screen" launch-prefix="">
+        <param name="serial_name" type="string" value="/dev/ttyUSB0"/>
+        <param name="baud_rate" type="int" value="921600"/>
+        <param name="A3_or_M100" type="int" value="0"/>
+        <param name="app_id" type="int" value="$(env DJIROS_APPID)"/>
+        <param name="app_version" type="int" value="1"/>
+        <param name="enc_key" type="string" value="$(env DJIROS_ENCKEY)"/>  
+        <param name="only_broadcast" type="bool" value="false"/>
+        <param name="align_with_fmu" type="bool" value="false"/>
+        <rosparam>
+            # common setting and default individual settings
+            verbose_output: false
+            cam_cnt: 1
+            fps:  20
+            gain: 1.0
+            use_auto_exposure: false
+            fast_mode: false
+
+            # individual setting for camera 0
+            camera0:
+                serial: "25000049"
+                topic: image
+                use_auto_exposure: false
+                exposure_time_us: 10000
+                auto_speed: 0 # 0--1--2, slow--medium--fast converge to desired value
+                gain: 1.0
+                is_slave: true
+        </rosparam>
+    </node> 
+
+    <node if="false" pkg="bluefox2" type="bluefox2" name="bluefox2" output="screen" launch-prefix="">
         <param name="fps" type="double" value="30.0" />
         <param name="gain" type="double" value="5.0" />
         <param name="use_auto_exposure" type="bool" value="false" />
@@ -15,12 +45,12 @@
         <remap from="~a" to="~image" />
     </node> 
 
-    <include file="$(find imu_3dm_gx4)/launch/imu.launch">
+    <include if="false" file="$(find imu_3dm_gx4)/launch/imu.launch">
         <arg name="imu_decimation" value="5" />
         <arg name="filter_decimation" value="2" />
         <arg name="enable_filter" value="true" />
         <arg name="enable_accel_update" value="true"/>
     </include>
 
-    <node pkg="imu_3dm_gx4" type="imu_3dm_gx4_merger.py" name="imu_3dm_gx4_merger" output="screen" />
+    <node if="false" pkg="imu_3dm_gx4" type="imu_3dm_gx4_merger.py" name="imu_3dm_gx4_merger" output="screen" />
 </launch>  
