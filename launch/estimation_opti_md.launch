@@ -12,7 +12,7 @@
                     pose: Robot_1/pose
                     pose2d: Robot_1/ground_pose
                     child_frame_id: Robot_1/base_link
-                    parent_frame_id: vicon
+                    parent_frame_id: optitrack
             optitrack_config:
                 multicast_address: 224.0.0.1
                 sdk_version: 2.8
@@ -22,6 +22,7 @@
 	<node pkg="mocap_optitrack" type="mocap_optitrack_object_transform_node" name="mocap_object_transformer" output="screen">
 		<remap from="~in_pose" to="/Robot_1/pose" />
 		<remap from="~odom" to="/mocap/odom" />
+		<param name="publish_rate" value="30.0" />
 	</node>
 
     <node pkg="poseekf" type="poseekf" name="poseekf" output="screen">
@@ -30,12 +31,12 @@
         <rosparam file="$(find poseekf)/config/params.yaml"/>
     </node>
 
-    <node pkg="odometry_assist" type="odometry_assist_node" name="odom_poseekf_vis" output="screen" >
+    <node if="false" pkg="odometry_assist" type="odometry_assist_node" name="odom_poseekf_vis" output="screen" >
         <rosparam command="load" file="$(find machine_defined)/config/odom_assist_ekf.yaml" />
         <remap from="~odom" to="/poseekf/odom" />
     </node>
 
-    <node name="tf_assist" pkg="uav_utils" type="tf_assist.py" output="screen">
+    <node if="false" name="tf_assist" pkg="uav_utils" type="tf_assist.py" output="screen">
 	    <param name="~converter0/frame_id_in" value="world" />
 	    <param name="~converter0/frame_id_out" value="world" />
 	    <param name="~converter0/broadcast_tf" value="false" />

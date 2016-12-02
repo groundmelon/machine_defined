@@ -1,9 +1,49 @@
 <launch>
 	<arg name="uavname" default="$(env UAVNAME)" />
+    <arg name="odomTopic" default="/self_calibration_estimator/latest_odometry" />
+    <!-- arg name="odomTopic" default="/poseekf/odom" /-->
+    
+    <node pkg="odometry_assist" type="odometry_assist_node" name="odom_vis" output="screen" >
+        <rosparam>
+            default:
+                color:
+                    r: 1.0
+                    g: 0.0
+                    b: 0.0
+                    a: 1.0
+                base_frame_id: "base"
+
+            tf:
+                enable: true
+                # base_frame_id: "world" # can be omitted or overwrite default/base_frame_id
+                body_frame_id: "body"
+                intermediate_frame_id: "intermediate"
+                intermediate_frame_enable: true
+                base_alias_frame_id: "world"
+                base_alias_frame_enable: true
+
+            velocity:
+                enable: true
+                # color: # can be omitted or overwrite default/color
+                #   r: 1.0
+                #   g: 0.0
+                #   b: 0.0
+                #   a: 0.0
+
+            path:
+                enable: true
+                decimation: 10 # no decimation when less than 1 
+                max_history: -1.0 # infinite history when less than 0
+
+            euler:
+                enable: false
+        </rosparam>
+        <remap from="~odom" to="$(arg odomTopic)" />
+    </node>
 
 	<node pkg="n1ctrl" type="n1ctrl_node" name="n1ctrl" output="screen">
 		<remap from="~joy" to="/djiros/rc" />
-        <remap from="~odom" to="/quadukf/odom" />
+        <remap from="~odom" to="$(arg odomTopic)" />
 		<remap from="~imu" to="/djiros/imu" />
 		<remap from="~cmd" to="/position_cmd" />
 
@@ -16,9 +56,9 @@
 			file="$(find machine_defined)/config/ctrl_param_$(arg uavname).yaml" />
 	</node>
 
-	<node pkg="waypoint_generator" type="waypoint_generator" name="waypoint_generator" output="screen">
+	<node if="false" pkg="waypoint_generator" type="waypoint_generator" name="waypoint_generator" output="screen">
 		<param name="waypoint_type" type="string" value="eight" />
-		<remap from="~odom" to="/odom" />
+        <remap from="~odom" to="$(arg odomTopic)" />
 		<remap from="~goal" to="/goal" />
 		<remap from="~waypoints" to="~waypoints" />
 		<remap from="~waypoints_vis" to="~waypoints_vis" />
@@ -35,12 +75,12 @@
          </rosparam>
 	</node>
 
-	<node pkg="trajectory_generator" type="trajectory_generator" name="trajectory_generator" output="screen">
+	<node if="false" pkg="trajectory_generator" type="trajectory_generator" name="trajectory_generator" output="screen">
 		<param name="add_waypoint_dist_thr" type="double" value="99.0" />
 		<param name="add_waypoint_theta_thr" type="double" value="99.0" /> 
 		<param name="traj_vel" type="double" value="3.0" />
 		<param name="traj_acc" type="double" value="1.0" /> 
-		<remap from="~odom" to="/odom" />
+        <remap from="~odom" to="$(arg odomTopic)" />
 		<remap from="~waypoints" to="/waypoint_generator/waypoints" />
 		<remap from="~position_cmd" to="/position_cmd" />
 		<remap from="~path" to="/raw_path_vis" />
