@@ -1,7 +1,6 @@
 <launch>
-	<arg name="uavname" default="$(env UAVNAME)" />
-    <arg name="odomTopic" default="/self_calibration_estimator/latest_odometry" />
-    <!-- arg name="odomTopic" default="/poseekf/odom" /-->
+	<arg name="uavname" default="uav1" />
+    <arg name="odomTopic" default="/poseekf/odom" />
     
     <node pkg="odometry_assist" type="odometry_assist_node" name="odom_vis" output="screen" >
         <rosparam>
@@ -11,7 +10,7 @@
                     g: 0.0
                     b: 0.0
                     a: 1.0
-                base_frame_id: "base"
+                base_frame_id: "world"
 
             tf:
                 enable: true
@@ -20,7 +19,7 @@
                 intermediate_frame_id: "intermediate"
                 intermediate_frame_enable: true
                 base_alias_frame_id: "world"
-                base_alias_frame_enable: true
+                base_alias_frame_enable: false
 
             velocity:
                 enable: true
