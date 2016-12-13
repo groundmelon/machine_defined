@@ -1,7 +1,6 @@
 <launch>
 	<arg name="uavname" default="$(env UAVNAME)" />
-    <arg name="odomTopic" default="/self_calibration_estimator/latest_odometry" />
-    <!-- arg name="odomTopic" default="/poseekf/odom" /-->
+    <arg name="odomTopic" default="/poseekf/odom" />
     
     <node pkg="odometry_assist" type="odometry_assist_node" name="odom_vis" output="screen" >
         <rosparam>

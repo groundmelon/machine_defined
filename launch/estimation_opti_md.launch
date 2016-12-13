@@ -8,7 +8,7 @@
 		required="true">
         <rosparam>
             rigid_bodies:
-                '6':
+                '7':
                     pose: Robot_1/pose
                     pose2d: Robot_1/ground_pose
                     child_frame_id: Robot_1/base_link
