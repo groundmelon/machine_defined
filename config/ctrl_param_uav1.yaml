@@ -1,7 +1,7 @@
 # 2995 + 680(batt) = 3675
-mass        : 1.70
+mass        : 1.80
 gra         : 9.81
-hov_percent : 0.25
+hov_percent : 0.23
 full_thrust : 60
 ctrl_rate   : 50.0
 js_ctrl_lock_velo: 0.3
@@ -18,10 +18,10 @@ gain:
         Kp0: 1.7 
         Kp1: 1.7 
         Kp2: 1.7
-        Kv0: 3.0
-        Kv1: 3.0
-        Kv2: 3.0
-	Kvi0: 0.3
+        Kv0: 2.0
+        Kv1: 2.0
+        Kv2: 2.0
+        Kvi0: 0.3
         Kvi1: 0.3
         Kvi2: 0.3
         Ka0: 1.0
@@ -37,10 +37,10 @@ gain:
         Kp0: 1.7
         Kp1: 1.7
         Kp2: 1.7
-        Kv0: 3.0 
-        Kv1: 3.0 
-        Kv2: 3.0
-	Kvi0: 0.3
+        Kv0: 2.0 
+        Kv1: 2.0 
+        Kv2: 2.0
+        Kvi0: 0.3
         Kvi1: 0.3
         Kvi2: 0.3
         Ka0: 1.0
@@ -63,10 +63,10 @@ idling:
     lowest_thrust:          0.11
 
 rc:
-    hori_velo_scale:   4.0
+    hori_velo_scale:   3.0
     vert_velo_scale:   3.0
     # rad 30~0.523 45~0.785 60~1.047
-    yaw_scale:         0.785
+    yaw_scale:         0.523
     attitude_scale:    0.523
     deadzone:          0.1
     exit_cmd_deadzone: 0.2
