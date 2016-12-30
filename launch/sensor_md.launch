@@ -15,15 +15,17 @@
             cam_cnt: 1
             fps:  20
             gain: 1.0
-            use_auto_exposure: false
-            fast_mode: false
+            use_auto_exposure: true
+            aec_desired_gray_value: 20 # desired overall gray value for the image
+            aec_control_delay_frame: 1 # larger values cause slower convergence
+            fast_mode: true
 
             # individual setting for camera 0
             camera0:
                 serial: "25000681"
                 topic: image
-                use_auto_exposure: false
-                exposure_time_us: 10000
+                use_auto_exposure: true
+                exposure_time_us: 5000
                 auto_speed: 0 # 0--1--2, slow--medium--fast converge to desired value
                 gain: 1.0
                 is_slave: true

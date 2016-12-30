@@ -1,28 +1,49 @@
 <launch>
-    <node pkg="quadukf"
-        name="quadukf"
-        type="quadukf_node"       
-        output="screen"
-        launch-prefix=""
-        >
-        <!-- <remap from="~odom_gps"    to="TODO"/>     -->
-        <!-- <remap from="~odom_vision" to="TODO"/> -->
-        <remap from="~imu"         to="/djiros/imu"/>
-        <!-- <remap from="~odom_laser"  to="/laser_pose_estimator/odom"/>     -->
-        <!-- <remap from="~opti_flow"   to="/monocular_velocity_estimator/odom"/> -->
-        <!-- <remap from="~odom_vision"   to="/self_calibration_estimator/odometry"/> -->
-        <!-- <remap from="~height_rel"  to="/scan/height"/> -->
-        <!-- <remap from="~height_abs"  to="/sonar/height"/> -->
-        <!-- <remap from="~global_vo"  to="/vosim/vo"/> -->
-        <remap from="~pose_with_yaw"  to="/mocap/odom"/>
-
+   	<node if="true" 
+        pkg="naivo" type="naivo_node" name="naivo" output="log">
+        <!-- <remap from="~points" to="/feature_sim/gt_points" /> -->
+        <remap from="~points" to="/feature_tracker/points" />
+        <remap from="~orientation" to="/fisheye_gimbal/cropped/orientation" />
+   		<remap from="~depth" to="/sonar/height" />
         <rosparam>
-            init_source: "pose_with_yaw"
-            process_std: [0.2,0.2,0.2,0.1,0.1,0.1,0.05,0.05,0.05]
+            simulation: false
+            pixel_noise: 0.0
+            bRc: [0, 1, 0,  1, 0, 0, 0, 0, -1] # down-rotate-180
+            # bRc: [0, -1, 0, -1, 0, 0, 0, 0, -1] # down
+            # bRc: [0, 0, 1, -1, 0, 0, 0, -1, 0] # front
+            no_eis: true
+            verbose_ceres: false
+        </rosparam>
+ 	</node>
+
+   	<node if="true"
+        pkg="odometry_assist" type="odometry_assist_node" name="naivo_vis" output="screen" >
+        <remap from="~odom" to="/naivo/odom" />
+        <rosparam>
+            tf:
+                enable: false
+            velocity:
+                enable: false
+            path:
+                enable: true
+                decimation: 0 # no decimation when less than 1 
+                max_history: -1.0 # infinite history when less than 0
+            euler:
+                enable: false
         </rosparam>
     </node>
 
-    <node pkg="odometry_assist" type="odometry_assist_node" name="odom_quadukf_vis" output="screen" >
+    <group if="true">
+        <node if="true" 
+            pkg="naivo" type="scale_estimator" name="scale_estimator" output="screen">
+            <remap from="~imu" to="/djiros/imu" />
+            <remap from="~vision" to="/naivo/odom" />
+            <remap from="~pointcloud" to="/naivo/pointcloud" />
+            <remap from="~scaled_odom" to="/naivo/scaled_odom" />
+        </node>
+    </group>
+
+    <node if="false" pkg="odometry_assist" type="odometry_assist_node" name="odom_quadukf_vis" output="screen" >
         <remap from="~odom" to="/quadukf/odom" />
         <rosparam>
             default:
@@ -59,20 +80,22 @@
                 enable: false
         </rosparam>
     </node>
+    
+    <group if="false">
+        <node pkg="mocap_optitrack"
+            type="mocap_node"
+            name="mocap_node"
+            respawn="false"
+            launch-prefix=""
+            output="screen"
+            required="true">
+            <rosparam file="$(find mocap_optitrack)/config/mocap.yaml" command="load" />
+        </node>
 
-    <node pkg="mocap_optitrack"
-        type="mocap_node"
-        name="mocap_node"
-        respawn="false"
-        launch-prefix=""
-        output="screen"
-        required="true">
-        <rosparam file="$(find mocap_optitrack)/config/mocap.yaml" command="load" />
-    </node>
-
-    <node pkg="mocap_optitrack" type="mocap_optitrack_object_transform_node" name="mocap_object_transformer" output="screen">
-        <remap from="~in_pose" to="/Robot_1/pose" />
-        <remap from="~odom" to="/mocap/odom" />
-    </node>
+        <node pkg="mocap_optitrack" type="mocap_optitrack_object_transform_node" name="mocap_object_transformer" output="screen">
+            <remap from="~in_pose" to="/Robot_1/pose" />
+            <remap from="~odom" to="/mocap/odom" />
+        </node>
+    </group>
 		
 </launch>
