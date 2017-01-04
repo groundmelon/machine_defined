@@ -5,6 +5,7 @@
         <remap from="~points" to="/feature_tracker/points" />
         <remap from="~orientation" to="/fisheye_gimbal/cropped/orientation" />
    		<remap from="~depth" to="/sonar/height" />
+        <remap from="~self_killing" to="/scale_estimator/init" />
         <rosparam>
             simulation: false
             pixel_noise: 0.0
