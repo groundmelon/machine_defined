@@ -10,17 +10,22 @@ hover:
     use_hov_percent_kf: true
     vert_velo_limit_for_update: 0.01
     vert_height_limit_for_update: 0.2
+    percent_lower_limit: 0.1
+    percent_higher_limit: 0.9
 
 gain:
     hover:
         # Controller gain in minimun snap
         #           opti/flow  multi
-        Kp0: 10.0 # 14.0
-        Kp1: 10.0 # 14.0
-        Kp2: 20.0 # 20.0
-        Kv0: 8.0 #   8.0
-        Kv1: 8.0 #   8.0
-        Kv2: 14.0 # 14.0
+        Kp0: 1.7 # 14.0
+        Kp1: 1.7 # 14.0
+        Kp2: 1.7 # 20.0
+        Kv0: 2.5 #   8.0
+        Kv1: 2.5 #   8.0
+        Kv2: 2.5 # 14.0
+        Kvi0: 0.0
+        Kvi1: 0.0
+        Kvi2: 0.0
         Ka0: 1.0
         Ka1: 1.0
         Ka2: 1.0
@@ -31,12 +36,15 @@ gain:
         Kw1: 0.07
         Kw2: 0.07
     track:
-        Kp0: 10.0
-        Kp1: 10.0
-        Kp2: 20.0
-        Kv0: 8.0 
-        Kv1: 8.0 
-        Kv2: 14.0
+        Kp0: 1.7
+        Kp1: 1.7
+        Kp2: 1.7
+        Kv0: 2.5 
+        Kv1: 2.5 
+        Kv2: 2.5
+        Kvi0: 0.0
+        Kvi1: 0.0
+        Kvi2: 0.0
         Ka0: 1.0
         Ka1: 1.0
         Ka2: 1.0
